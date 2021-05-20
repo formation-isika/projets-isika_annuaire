@@ -1,12 +1,12 @@
 package fr.isika.cda10.annuaire.models;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Arbre Binaire sans doublon
  * Les types d'éléments de l'arbre doivent être Comparable
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> stash
  * @author Aissatou
  *
  */
@@ -30,14 +30,14 @@ public class ArbreBinaire <E extends Comparable<E>>{
 			return  "Index : " + index + " - Valeur : "
 					+ valeur +" - "
 					+ " FG= Valeur : " + (filsGauche == null ? "" : filsGauche)
-					+ " FD= Valeur : " +  (filsDroit == null ? "" : filsDroit);		
+					+ " FD= Valeur : " + (filsDroit == null ? "" : filsDroit);		
+
 		}
 	}
 	/**
 	 *  Attrbuts d'Arbre binaire
 	 */
 	private Noeud<E> racine = null;
-	public Noeud<E> index = null;
 
 	/**
 	 * @return the racine
@@ -62,7 +62,6 @@ public class ArbreBinaire <E extends Comparable<E>>{
 	
 	
 	/**
-	 * /**
 	 * Permet d'ajouter un noeud � la bonne place
 	 * suivant la relation d'ordre du E consid�r�
 	 *
@@ -98,6 +97,7 @@ public class ArbreBinaire <E extends Comparable<E>>{
 			}
 		}
 	}
+
 	 /**
 	 * @param noeud
 	 * @param element

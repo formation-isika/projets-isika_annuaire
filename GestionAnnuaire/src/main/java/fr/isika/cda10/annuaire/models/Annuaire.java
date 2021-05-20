@@ -1,5 +1,4 @@
 package fr.isika.cda10.annuaire.models;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,16 +13,16 @@ import java.util.List;
 import fr.isika.cda10.annuaire.models.ArbreBinaire.Noeud;
 
 public class Annuaire {
-
+	
+	List<Stagiaire> stagiaires;
 	ArbreBinaire<Stagiaire> arbreStagiaire;
 	BufferedReader bufferedReader = null;
 	FileReader fileReader;
-	List<Stagiaire> stagiaires;
 	//private static String NOM_FICHIER = "STAGIAIRES.DON";
 	private static String NOM_SAUVEGARDE_TRI= "SAUVEGARDE.bin";
 	private static String NOM_FICHIER = "STAGIAIRES-COMPLET.DON";
 	private static final int TAILLE = 5;
-
+	
 	public Annuaire() {
 		arbreStagiaire = new ArbreBinaire<Stagiaire>();
 	}
@@ -38,7 +37,6 @@ public class Annuaire {
 			fileReader = new FileReader(fichier);
 			bufferedReader = new BufferedReader(fileReader);
 			while(bufferedReader.ready()) {
-
 				Object[] elementStagiaire = new Object[TAILLE];
 				for(int i=0; i<elementStagiaire.length; i++) {
 					if(i==4)
@@ -52,11 +50,11 @@ public class Annuaire {
 													(String)elementStagiaire[3],
 													(Integer)(elementStagiaire[4])
 												   );
+						
 				stagiaires.add(stagiaire);
 				bufferedReader.readLine();
 			}
 			initierArbreBinaireAPartirDeLaListeDesStagiaires(stagiaires);
-
 		} catch(FileNotFoundException e) {
 			System.err.printf("Le fichier %s n'a pas été trouver", fichier.toString()+"\n");
 		}
@@ -64,7 +62,6 @@ public class Annuaire {
 			System.err.printf("Impossible de lire le fichier", fichier.toString()+"\n");
 			e.printStackTrace();
 		}
-
 		try {
 			bufferedReader.close();
 		}catch (IOException e) {
@@ -74,9 +71,8 @@ public class Annuaire {
 			System.err.printf("Impossible d'ouvrir le fichier", fichier.toString()+"\n");
 			e.printStackTrace();
 		}
-
 	}
-
+	
 	/**
 	 * initierArbreBinaire permet de rajouter les stagiaires dans l'arbre binaire
 	 * @param elementsFichier
@@ -89,7 +85,7 @@ public class Annuaire {
 		});
 		arbreStagiaire.parcoursInfixe(arbreStagiaire.getRacine());
 	}
-
+	
 	/**
 	 * ajouter un stagiaire dans l'arbre binaire
 	 * @param stagiaire
@@ -97,22 +93,31 @@ public class Annuaire {
 	public void ajouterStagiaireDansLeNoeud(Stagiaire stagiaire, int index) {
 		if(stagiaire != null)
 			arbreStagiaire.ajouterNoeud(stagiaire, index);
+
 	}
 	
 	/**
-	 * 
+	 * Recupérer la liste des stagiaires
+	 * @return
+	 */
+	public List<Stagiaire> getListStagiaire() {
+		return stagiaires;
+	}
+
+	/**
+	 *
 	 * @return
 	 * @throws IOException
 	 */
 	public ArbreBinaire<Stagiaire> lireArbreBinaireDansFichierSauvegarde() throws IOException {
-		 ArbreBinaire<Stagiaire> arbreBinaire = new ArbreBinaire<>();
-		 
-		 try {
+		ArbreBinaire<Stagiaire> arbreBinaire = new ArbreBinaire<>();
+
+		try {
 			RandomAccessFile rafTri = new RandomAccessFile(NOM_SAUVEGARDE_TRI, "rw");
 			int i=0;
-			Noeud<Stagiaire> noeud = null; 
+			Noeud<Stagiaire> noeud = null;
 			Stagiaire stagiaireTmp = null;
-			for(rafTri.seek(i); i<=rafTri.length(); rafTri.seek(i+68)) {
+			for(rafTri.seek(i); i<=rafTri.length(); rafTri.seek(i+80)) {
 				String nom="";
 				String prenom = "";
 				String departement = "";
@@ -136,31 +141,41 @@ public class Annuaire {
 				for(int j=64; j<68; i++) {
 					anneeObtention +=rafTri.readInt();
 				}
-				
+				for(int j=68; j<72; i++) {
+					index +=rafTri.readInt();
+				}
+				for(int j=72; j<76; i++) {
+					indexFg +=rafTri.readInt();
+				}
+				for(int j=76; j<80; i++) {
+					indexFd +=rafTri.readInt();
+				}
+
 				stagiaireTmp = new Stagiaire();
 				stagiaireTmp.setPrenom(prenom.trim());
 				stagiaireTmp.setDepartement(departement.trim());
 				stagiaireTmp.setPromotion(promotion.trim());
 				stagiaireTmp.setAnneeObtention(anneeObtention);
-				
-				noeud = new Noeud<Stagiaire>(stagiaireTmp, i);
-				
-				arbreBinaire.ajouterNoeud(stagiaireTmp, i);
+
+				noeud = new Noeud<Stagiaire>(stagiaireTmp, index);
+				arbreBinaire.ajouterNoeud(stagiaireTmp, index);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 return arbreBinaire;
-   }
+		return arbreBinaire;
+	}
 	
 	/**
-	 * 
 	 * @param stagiaires
 	 * @return
+	 * @throws IOException
 	 */
+
 	public ArbreBinaire<Stagiaire> ecrireArbreBinaireDansFichierSauvegarde(List<Stagiaire> stagiaires){
 		ArbreBinaire<Stagiaire> arbreBinaire = new ArbreBinaire<>();
+		//Noeud<Stagiaire> noeud = new Noeud<Stagiaire>(stagiaire, index);
 		try {
 			RandomAccessFile rafTri = new RandomAccessFile(NOM_SAUVEGARDE_TRI, "rw");
 			stagiaires.forEach(stagiaire -> {
@@ -170,20 +185,19 @@ public class Annuaire {
 					rafTri.writeChars(stagiaire.getDepartement());
 					rafTri.writeChars(stagiaire.getPromotion());
 					rafTri.writeInt(stagiaire.getAnneeObtention());
+					//rafTri.writeInt(noeud.);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return arbreBinaire;
-	}
+		 return arbreBinaire;
+   }
 	
-	public List<Stagiaire> getListStagiaire() {
-		return stagiaires;
-	}
 
 }

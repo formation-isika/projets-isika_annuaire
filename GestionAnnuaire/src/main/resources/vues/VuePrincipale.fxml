@@ -8,34 +8,33 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="43.0" layoutY="88.0" prefHeight="451.0" prefWidth="698.0">
+            <TableView fx:id="stagiairesTable" layoutX="43.0" layoutY="88.0" prefHeight="451.0" prefWidth="698.0">
               <columns>
-                <TableColumn prefWidth="129.0" text="Nom" />
-                <TableColumn prefWidth="125.0" text="Prénom" />
-                  <TableColumn prefWidth="210.0" text="Département" />
-                  <TableColumn prefWidth="127.0" text="Promotion" />
-                  <TableColumn prefWidth="106.0" text="Année" />
+                <TableColumn fx:id="nomCol" prefWidth="129.0" text="Nom" />
+                <TableColumn fx:id="prenomCol" prefWidth="125.0" text="Prénom" />
+                  <TableColumn fx:id="departementCol" prefWidth="210.0" text="Département" />
+                  <TableColumn fx:id="promotionCol" prefWidth="127.0" text="Promotion" />
+                  <TableColumn fx:id="anneeObtentionCol" prefWidth="106.0" text="Année" />
               </columns>
             </TableView>
-            <Button alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Documentation" />
+            <Button fx:id="btnDocumentation" alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Documentation" />
             <VBox alignment="CENTER" layoutX="768.0" layoutY="89.0" prefHeight="168.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <Button alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Nouveau" textAlignment="CENTER">
+                  <Button fx:id="ajouteStagiaireBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Nouveau" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Modifier">
+                  <Button fx:id="modifierStagiaireBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Modifier">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Supprimer">
+                  <Button fx:id="supprimerStagiaireBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Supprimer">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -44,11 +43,11 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="768.0" layoutY="273.0" prefHeight="141.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <Button alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Recherche" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Impression" />
+                  <Button fx:id="btnRecherche" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Recherche" />
+                  <Button fx:id="btnImpression" alignment="CENTER" mnemonicParsing="false" text="Impression" />
                </children>
             </VBox>
-            <Button layoutX="43.0" layoutY="26.0" mnemonicParsing="false" text="Login" />
+            <Button fx:id="btnLogin" layoutX="43.0" layoutY="26.0" mnemonicParsing="false" text="Login" />
          </children>
       </AnchorPane>
    </center>
