@@ -8,6 +8,10 @@ public class Stagiaire implements Comparable<Stagiaire>{
 	private String  promotion;
 	private Integer anneeObtention;
 	
+	public Stagiaire() {
+		super();
+	}
+
 	public Stagiaire(String nom, String prenom, String departement, String promotion, Integer anneeObtention) {
 		super();
 		this.nom = nom;

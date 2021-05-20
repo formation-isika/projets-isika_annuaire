@@ -47,7 +47,7 @@ public class LanceurAnnuaire extends Application {
 	
 	public void testMethod() {
 		Annuaire a = new Annuaire();
-		a.initierArbreBinaireAPartirDuFichierStagiaires();
+		a.initierArbreBinaireAPartirDuFichierStagiairesDon();
 		
 	}
 
