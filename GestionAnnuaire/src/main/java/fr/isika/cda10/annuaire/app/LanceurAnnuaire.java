@@ -1,11 +1,9 @@
 package fr.isika.cda10.annuaire.app;
 
 import java.io.IOException;
+import java.net.URL;
 
 import fr.isika.cda10.annuaire.controleurs.VuePrincipaleControleur;
-import fr.isika.cda10.annuaire.models.Annuaire;
-import fr.isika.cda10.annuaire.models.ArbreBinaire;
-import fr.isika.cda10.annuaire.models.Stagiaire;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,47 +13,39 @@ import javafx.stage.Stage;
 public class LanceurAnnuaire extends Application {
 
 	private Stage primaryStage;
-	private BorderPane vuePrincipale;
-
+	private VuePrincipaleControleur vuePrincipaleControleur;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Gestions Annuaire");
-
 		initVuePrincipale();
 
 	}
 
 	private void initVuePrincipale() {
 		try {
-			//Charge la Vue Principale depuis fxml file
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(LanceurAnnuaire.class.getResource("vues/VuePrincipale.fxml"));
-			vuePrincipale = (BorderPane) loader.load();
+			vuePrincipaleControleur = new VuePrincipaleControleur();
 
-			VuePrincipaleControleur controleur = loader.getController();
-		//	controleur.setLanceurAnnuaire(this);
+			// Charge la Vue Principale depuis fxml file
+			URL chemin = getClass().getClassLoader().getResource("vues/VuePrincipale.fxml");
+			FXMLLoader loader = new FXMLLoader(chemin);
 
-			Scene scene = new Scene(vuePrincipale);
+			loader.setController(vuePrincipaleControleur);
+
+			BorderPane parent = loader.load();
+			Scene scene = new Scene(parent);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void testMethod() {
-		Annuaire a = new Annuaire();
-		a.initierArbreBinaireAPartirDuFichierStagiaires();
-		
-	}
 
 	 public static void main(String[] args) {
-			//launch(args);
-		 new LanceurAnnuaire().testMethod();
+			launch(args);
+		
 
 	 }
 
