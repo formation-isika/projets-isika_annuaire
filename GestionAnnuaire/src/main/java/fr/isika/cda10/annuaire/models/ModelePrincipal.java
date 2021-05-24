@@ -31,7 +31,7 @@ public class ModelePrincipal {
 		s.setPrenom((String) donneesStagiaire[1]);
 		s.setDepartement((String) donneesStagiaire[2]);
 		s.setPromotion((String) donneesStagiaire[3]);
-		s.setAnneeObtention((int) donneesStagiaire[4]);
+		s.setAnneeObtention((Integer) donneesStagiaire[4]);
 		return s;
 	}
 	
@@ -40,7 +40,7 @@ public class ModelePrincipal {
 //	}
 	
 	public Stagiaire addStagiaire(Object[] donneesStagiaire) {
-		Stagiaire s = new Stagiaire((String) donneesStagiaire[0], (String) donneesStagiaire[1], (String) donneesStagiaire[2], (String) donneesStagiaire[3], (int) donneesStagiaire[4]);
+		Stagiaire s = new Stagiaire((String) donneesStagiaire[0], (String) donneesStagiaire[1], (String) donneesStagiaire[2], (String) donneesStagiaire[3], (Integer) donneesStagiaire[4]);
 		listeStagiaire.add(s);
 		return s;
 	}

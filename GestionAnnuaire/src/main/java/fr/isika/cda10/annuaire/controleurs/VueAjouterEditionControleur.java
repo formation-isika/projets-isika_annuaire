@@ -1,203 +1,173 @@
 package fr.isika.cda10.annuaire.controleurs;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import fr.isika.cda10.annuaire.models.ModelePrincipal;
 import fr.isika.cda10.annuaire.models.Stagiaire;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
+public class VueAjouterEditionControleur {
+	
+	private VuePrincipaleControleur vuePrincipaleControleur;
 
-	public class VueAjouterEditionControleur implements Initializable {
+	private Stage ajouterStagiaireStage;
+	@FXML
+	private Stagiaire stagiaire;
 
-		// Controleur de la vue principale qu'on utilisera pour mettre Ã  jour la vue
-		// principale quand le modÃ¨le va changer
-		private VuePrincipaleControleur vuePrinipaleControleur;
+	@FXML
+	private TextField nomTF;
 
-		// On mÃ©morise le stage contrÃ´lÃ© pour faire des actions dessus (fermeture par exemple)
-		private Stage ajoutStagiaireStage;
+	@FXML
+	private TextField prenomTF;
+
+	@FXML
+	private TextField departementTF;
+
+	@FXML
+	private TextField promotionTF;
+
+	@FXML
+	private TextField anneeObtentionTF;
+	@FXML
+	private Button validerBtn;
+	@FXML
+	private Button annulerBtn;
+
+	// Lien MVC
+	private ModelePrincipal modele;
+	private Stage secondaryStage; // Stage Dialogue car nouvelle fenetre qui s'ouvre lors clic
+	private String texteAlert;
+
+	private String nom;
+	private String prenom;
+	private String departement;
+	private String promotion;
+	private String anneeObtention;
+	
+	public VueAjouterEditionControleur(VuePrincipaleControleur vuePrincipaleControleur) {
+		this.vuePrincipaleControleur = vuePrincipaleControleur;
+	}
+
+	private boolean saisieOK;
+	public boolean isSaisieOK() {
+		return saisieOK;
+	}
+	@FXML
+	private void initialize() {
+	}
+
+	public void setModelePrincipal(ModelePrincipal modele) {
+		this.modele = modele;
+	}
+
+	public void setStage(Stage secondaryStage) {
+		this.secondaryStage = secondaryStage;
+	}
+
+	public void setStagiaire(Stagiaire modifierStagiaire) {
+		this.stagiaire = modifierStagiaire;
+	}
+	
+	public void ajouterStagiaire() {
 		
-		// Composants Ã  manipuler par le controleur
+	}
 
-		@FXML
-		private TextField nomStagiaireTextField;
-		
-		@FXML
-		private TextField prenomStagiaireTextField;
-
-		@FXML
-		private TextField departementStagiaireTextField;
-
-		@FXML
-		private TextField promotionStagiaireTextField;
-
-		@FXML
-		private TextField anneeObtentionStagiaireTextField;
-
-		@FXML
-		private Button validateBtn;
-
-		@FXML
-		private Button resetBtn;
-		
-		public VueAjouterEditionControleur(VuePrincipaleControleur vuePrinipaleControleur) {
-			this.vuePrinipaleControleur = vuePrinipaleControleur;
+	@FXML
+	private void valider() {
+		if(!saisieValide()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Erreur Saisie");
+			alert.setContentText(texteAlert);
+			alert.show();
+			return;			
 		}
 
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
-			
-			validateBtn.setOnAction(new EventHandler<ActionEvent>() {
+		modele.addStagiaire(initDonnees());
+		saisieOK = true;
 
-				@Override
-				public void handle(ActionEvent event) {
-					ajoutStagiaire();
-				}
-			});
-
-			resetBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					reset();
-				}
-			});
-
-		}
-
-		public void ajoutStagiaire() {
-			// Valider la saisie
-			String erreurs = validerSaisie();
-			if (erreurs.isEmpty()) {
-				Stagiaire stagiaire = new Stagiaire();
-				stagiaire.setNom(nomStagiaireTextField.getText());
-				stagiaire.setPrenom(prenomStagiaireTextField.getText());
-				stagiaire.setDepartement(departementStagiaireTextField.getText());
-				stagiaire.setPromotion(promotionStagiaireTextField.getText());
-				stagiaire.setAnneeObtention(Integer.valueOf(anneeObtentionStagiaireTextField.getText()));
-
-//				vuePrinipaleControleur.mettreAJourModele(stagiaire);
-//				vuePrinipaleControleur.mettreAJourVue(stagiaire);
-				
-				closeStage();
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Erreurs de saisie : ");
-				alert.setContentText(erreurs);
-				alert.show();
-			}
-		}
-
-		public void creeEtAfficheFenetreAjoutProduits(Region rootPane) {
-			Scene scene = new Scene(rootPane, rootPane.getPrefWidth(), rootPane.getPrefHeight());
-			this.ajoutStagiaireStage = new Stage();
-			this.ajoutStagiaireStage.setTitle("Ajout d'un nouveau produit");
-			this.ajoutStagiaireStage.setScene(scene);
-			this.ajoutStagiaireStage.show();
-		}
-
-		private void closeStage() {
-			ajoutStagiaireStage.close();
-		}
-		
-		private void reset() {
-			departementStagiaireTextField.clear();
-			nomStagiaireTextField.clear();
-			prenomStagiaireTextField.clear();
-			anneeObtentionStagiaireTextField.clear();
-			promotionStagiaireTextField.clear();
-
-		}
-		
-		/*
-		 * MÃ©thodes privÃ©es
-		 */
-		
-		private void preRemplirProduitAleatoire() {
-//			Stagiaire stagiaire = generateRandomProduit();
-//			nomStagiaireTextField.setText(String.valueOf(stagiaire.getNom()));
-//			prenomStagiaireTextField.setText(String.valueOf(stagiaire.getPrenom()));
-//			departementStagiaireTextField.setText(stagiaire.getDepartement());
-//			promotionStagiaireTextField.setText(String.valueOf(stagiaire.getPromotion()));
-//			anneeObtentionStagiaireTextField.setText(String.valueOf(stagiaire.getAnneeObtention()));
-		}
-
-//		private Stagiaire generateRandomProduit() {
-//			Stagiaire stagiaire = new Stagiaire();
-//			
-//			// un numÃ©ro random
-//			stagiaire.setId(new Random().nextLong());
-//			
-//			// une dÃ©signation 
-//			stagiaire.setDesignation("Produit_Num_" + stagiaire.getId());
-//			
-//			// Un type alÃ©atoire entre 1 et 5 (voir liste dÃ©roulante ci-dessous pour les index)
-//			int randomTypeProduitIndex = new Random().nextInt(5);
-////			typeProduitSelectBox.getSelectionModel().select(randomTypeProduitIndex);
-//			stagiaire.setTypeProduit(typeProduitSelectBox.getItems().get(randomTypeProduitIndex));
-//			
-//			// une quantitÃ© random
-//			int randomQuantite = new Random().nextInt(50);
-//			stagiaire.setQuantite(randomQuantite);
-//			
-//			// un prix random
-//			double randomPrix = new Random().nextDouble();
-//			stagiaire.setPrixUnitaire(randomPrix);
-//			
-//			return stagiaire;
-//		}
-		
-		private String validerSaisie() {
-			StringBuilder errorsBuilder = new StringBuilder();
-			
-			// Nom
-			String nom = nomStagiaireTextField.getText();
-			if (nom == null || nom.trim().isEmpty()) {
-				errorsBuilder.append("Le nom du stagiaire doit être renseigné\n");
-				
-			}
-
-			// Prenom
-			String prenom = prenomStagiaireTextField.getText();
-			if (prenom == null || prenom.trim().isEmpty()) {
-				errorsBuilder.append("Le prenom du stagiaire doit être renseigné\n");
-			
-			}
-
-			// Departement
-			String departement = departementStagiaireTextField.getText();
-			if (departement == null || departement.trim().isEmpty()) {
-				errorsBuilder.append("La département du stagiaire doit être renseigné\n");
-			}
-
-			// Promotion
-			String promotion = promotionStagiaireTextField.getText();
-			if (promotion == null || promotion.trim().isEmpty()) {
-				errorsBuilder.append("La promotion du stagiaire doit être renseignée\n");
-			}
-
-			// Année Obtention
-			String anneeObtention = anneeObtentionStagiaireTextField.getText();
-			if (anneeObtention == null || anneeObtention.trim().isEmpty()) {
-				errorsBuilder.append("L'année du stagiaire doit être renseignée\n");
-			} else {
-				try {
-					Integer.valueOf(anneeObtention);
-				} catch (NumberFormatException e) {
-					errorsBuilder.append("L'année du stagiaire doit être une valeur numÃ©rique\n");
-				}
-			}
-			return errorsBuilder.toString();
-
-		}
+		secondaryStage.close();
 
 	}
+
+	private boolean saisieValide() {
+		boolean saisieValide = true;
+
+		texteAlert = "";
+
+		nom = nomTF.getText().trim(); // trim supprime les espaces avant et apres
+		prenom =  prenomTF.getText().trim();
+		departement =  departementTF.getText().trim();
+		promotion = promotionTF.getText().trim();
+		anneeObtention =  anneeObtentionTF.getText().trim();
+
+		if (nom.length() == 0 || !nom.matches("[a-zA-Z\\s]+")) {
+			saisieValide = false;
+			texteAlert += "Champ nom non valide :";
+			if (nom.length() == 0) texteAlert += " a remplir\n";
+			else if (!nom.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres\n";
+		}
+		if (prenom.length() == 0 || !prenom.matches("[a-zA-Z\\s]+")) {
+			saisieValide = false;
+			texteAlert += "Champ prenom non valide :";
+			if (prenom.length() == 0) texteAlert += " a remplir\n";
+			else if (!prenom.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres\n";
+		}
+		if (departement.length() == 0 || !departement.matches("[a-zA-Z0-9\\s]+")) {
+			saisieValide = false;
+			texteAlert += "Champ departement non valide :";
+			if (departement.length() == 0) texteAlert += " a remplir\n";
+			else if (!departement.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres ou des entiers\n";
+		}
+
+		if (promotion.length() == 0 || !promotion.matches("[a-zA-Z0-9\\s]+")) {
+			saisieValide = false;
+			texteAlert += "Champ promotion non valide :";
+			if (promotion.length() == 0) texteAlert += " a remplir\n";
+			else if (!promotion.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres ou des entiers\n";
+		}
+		if (anneeObtention.length() == 0) {
+			try {
+				Integer.parseInt(anneeObtention);
+				if (anneeObtention.charAt(0) == '-') {
+					saisieValide = false;
+					texteAlert += "Champ anneeObtention non valide : ne doit contenir qu'un entier positif compris entre 1980 et 2025\n";
+				}
+			} catch (NumberFormatException nfE) {
+				saisieValide = false;
+				texteAlert += "Champ anneeObtention non valide : ne doit contenir qu'un entier positif\n";
+			}
+		}
+
+
+		return saisieValide;
+	}
+
+	private Object[] initDonnees() {
+		Object[] donneesStagiaire = new Object[5];
+
+		donneesStagiaire[0] = nom;
+		donneesStagiaire[1] = prenom;
+		donneesStagiaire[2] = departement;
+		donneesStagiaire[3] = promotion;
+
+		if (anneeObtention.length() == 0) donneesStagiaire[4] = 0; // Ici rajouter condition pour que anneeObtention soit compris entre 1980 et 2025
+		else donneesStagiaire[4] = Integer.parseInt(anneeObtention);
+
+		return donneesStagiaire;
+	}
+
+	private void closeStage() {
+		ajouterStagiaireStage.close();
+	}
+
+	private void reset() {
+		nomTF.clear();
+		prenomTF.clear();
+		departementTF.clear();
+		promotionTF.clear();
+		anneeObtentionTF.clear();
+	}
+}
