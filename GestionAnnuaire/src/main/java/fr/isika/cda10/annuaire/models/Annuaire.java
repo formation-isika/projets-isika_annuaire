@@ -137,13 +137,13 @@ public class Annuaire {
 			stagiaires.forEach(stagiaire -> {
 				try {
 					rafTri.seek(rafTri.length());
-					rafTri.writeChars(stagiaire.getNom());
+					rafTri.writeChars(stagiaire.nomLong());
 					rafTri.seek(rafTri.length());
-					rafTri.writeChars(stagiaire.getPrenom());
+					rafTri.writeChars(stagiaire.prenomLong());
 					rafTri.seek(rafTri.length());
-					rafTri.writeChars(stagiaire.getDepartement());
+					rafTri.writeChars(stagiaire.deptLong());
 					rafTri.seek(rafTri.length());
-					rafTri.writeChars(stagiaire.getPromotion());
+					rafTri.writeChars(stagiaire.promoLong());
 					String anneeObtention = String.valueOf(stagiaire.getAnneeObtention());
 					rafTri.seek(rafTri.length());
 					rafTri.writeChars(anneeObtention);

@@ -1,7 +1,9 @@
 package fr.isika.cda10.annuaire.controleurs;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import fr.isika.cda10.annuaire.app.LanceurAnnuaire;
 import fr.isika.cda10.annuaire.models.Annuaire;
 import fr.isika.cda10.annuaire.models.ModelePrincipal;
@@ -9,21 +11,26 @@ import fr.isika.cda10.annuaire.models.Stagiaire;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
 
 public class VuePrincipaleControleur implements Initializable {
 	
-	//private static final String VUE_AJOUT_PRODUIT_VIEW_PATH = "/GestionAnnuaire/ressources/VuePrincipale.fxml"; //TODO à faire
+	private static final String VUE_AJOUT_STAGIAIRE_VIEW_PATH = "vues/VueAjouterEdition.fxml"; 
 	
 	@FXML
 	private TableView<Stagiaire> stagiairesTable;
 	@FXML
-	private Button nouveauBtn;
+	private Button ajouteStagiaireBtn;
 	@FXML
 	private Button supprimerBtn;
 	@FXML
@@ -52,7 +59,7 @@ public class VuePrincipaleControleur implements Initializable {
 	private ObservableList<Stagiaire> listeDynamiqueStagiaires;
 	private Annuaire a;
 	public ModelePrincipal modele;
-	private LanceurAnnuaire lanceurAnnuaire;
+	private VueAjouterEditionControleur gestionAnnuaireControleur;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -60,6 +67,19 @@ public class VuePrincipaleControleur implements Initializable {
 		a = new Annuaire();
 		a.initierArbreBinaireAPartirDuFichierStagiairesDon();
 		initTableView();
+		
+		// Ajout de l'action du bouton ajouter stagiaire
+		ajouteStagiaireBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					afficherFenetreAjoutStagiaire();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 	}
 	
@@ -81,18 +101,32 @@ public class VuePrincipaleControleur implements Initializable {
 		stagiairesTable.setItems(listeDynamiqueStagiaires);
 	}
 	
-	public void setMainApp(LanceurAnnuaire lanceurAnnuaire) {
-		this.lanceurAnnuaire = lanceurAnnuaire;
-		listeDynamiqueStagiaires = FXCollections.observableArrayList(modele.getListeStagiaire());
-		stagiairesTable.setItems(listeDynamiqueStagiaires);
+	public void mettreAjourAnnuaire(Stagiaire stagiaire, int index) {
+		a.ajouterStagiaireDansLeNoeud(stagiaire, index);
 	}
-	@FXML
-	private void ajouterStagiaire() {
-		if(lanceurAnnuaire.initVueAjouterEdition(modele, null)) {
-			listeDynamiqueStagiaires.add(modele.getStagiaire(modele.getListeStagiaire().size() - 1)); // size parcourue tableau et le - 1, c'est car tableau, index commence à 0
-			// cette ligne 84 permet de mettre l'objet ajoute à la fin du tableau
-		}
+	
+	public void mettreAJourVue(Stagiaire stagiaire) {
+		mettreAJoutTable(stagiaire);
 	}
+	
+	private void mettreAJoutTable(Stagiaire stagiaire) {
+		listeDynamiqueStagiaires.add(stagiaire);
+		stagiairesTable.refresh();
+	}
+	
+	/**
+	 * Affiche la fenÃªtre d'ajout de stagiaire
+	 * 
+	 * @throws IOException
+	 */
+	public void afficherFenetreAjoutStagiaire() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(VUE_AJOUT_STAGIAIRE_VIEW_PATH));
+		 gestionAnnuaireControleur = new VueAjouterEditionControleur(this);
+		loader.setController(gestionAnnuaireControleur);
+		AnchorPane rootPane = loader.load();
+		gestionAnnuaireControleur.creeEtAfficheFenetreAjoutStagiaires(rootPane);
+	}
+	
 	@FXML
 	private void quitter() {
 		Platform.exit();

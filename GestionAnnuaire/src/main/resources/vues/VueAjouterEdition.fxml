@@ -1,29 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-
-
-<BorderPane prefHeight="400.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="8.0" layoutY="4.0" prefHeight="30.0" prefWidth="124.0" text="Stagiaire Details" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <GridPane alignment="CENTER" layoutX="7.0" layoutY="23.0" prefHeight="307.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="197.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="403.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label layoutX="39.0" layoutY="53.0" text="Nom" />
-            <Label layoutX="36.0" layoutY="105.0" text="Prénom" />
-            <Label layoutX="39.0" layoutY="156.0" text="Département" />
-            <Label layoutX="40.0" layoutY="209.0" text="Promotion" />
-            <Label layoutX="40.0" layoutY="258.0" text="Année" />
-            <TextField layoutX="158.0" layoutY="48.0" />
-            <TextField layoutX="158.0" layoutY="100.0" />
-            <TextField layoutX="158.0" layoutY="151.0" />
-            <TextField layoutX="158.0" layoutY="204.0" />
-            <TextField layoutX="158.0" layoutY="253.0" />
-            <Button layoutX="124.0" layoutY="322.0" mnemonicParsing="false" text="Valider" />
-            <Button layoutX="258.0" layoutY="322.0" mnemonicParsing="false" text="Annuler" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Nom" textAlignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Prenom" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Departement" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Promotion" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Annee Obtention" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="60.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="nomTexteField" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="prenomTexteField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="departementTexteField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="promotionTexteField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="anneeObtentionTexteField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="validerBtn" layoutX="125.0" layoutY="249.0" mnemonicParsing="false" text="Valider" />
+            <Button fx:id="annulerBtn" layoutX="186.0" layoutY="249.0" mnemonicParsing="false" text="Annuler" />
+            <Button fx:id="closeBtn" layoutX="431.0" layoutY="249.0" mnemonicParsing="false" text="Fermer" />
          </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+      </GridPane>
+      <ButtonBar layoutX="163.0" layoutY="330.0" prefHeight="53.0" prefWidth="275.0">
+        <buttons>
+            <Button mnemonicParsing="false" onAction="#valider" prefWidth="120.0" text="Valider" textAlignment="CENTER" />
+          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="120.0" text="Annuler" textAlignment="CENTER" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

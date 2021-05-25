@@ -1,162 +1,145 @@
 package fr.isika.cda10.annuaire.controleurs;
 
-import fr.isika.cda10.annuaire.models.ModelePrincipal;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import fr.isika.cda10.annuaire.models.Stagiaire;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Region;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class VueAjouterEditionControleur {
+public class VueAjouterEditionControleur implements Initializable {
 	
 	private VuePrincipaleControleur vuePrincipaleControleur;
 
 	private Stage ajouterStagiaireStage;
-	@FXML
-	private Stagiaire stagiaire;
 
 	@FXML
-	private TextField nomTF;
+	private TextField nomTexteField;
 
 	@FXML
-	private TextField prenomTF;
+	private TextField prenomTexteField;
 
 	@FXML
-	private TextField departementTF;
+	private TextField departementTexteField;
 
 	@FXML
-	private TextField promotionTF;
+	private TextField promotionTexteField;
 
 	@FXML
-	private TextField anneeObtentionTF;
+	private TextField anneeObtentionTexteField;
+	
 	@FXML
 	private Button validerBtn;
+	
 	@FXML
 	private Button annulerBtn;
+	
+	@FXML
+	private Button closeBtn;
 
-	// Lien MVC
-	private ModelePrincipal modele;
-	private Stage secondaryStage; // Stage Dialogue car nouvelle fenetre qui s'ouvre lors clic
-	private String texteAlert;
-
-	private String nom;
-	private String prenom;
-	private String departement;
-	private String promotion;
-	private String anneeObtention;
 	
 	public VueAjouterEditionControleur(VuePrincipaleControleur vuePrincipaleControleur) {
 		this.vuePrincipaleControleur = vuePrincipaleControleur;
 	}
 
-	private boolean saisieOK;
-	public boolean isSaisieOK() {
-		return saisieOK;
-	}
-	@FXML
-	private void initialize() {
-	}
-
-	public void setModelePrincipal(ModelePrincipal modele) {
-		this.modele = modele;
-	}
-
-	public void setStage(Stage secondaryStage) {
-		this.secondaryStage = secondaryStage;
-	}
-
-	public void setStagiaire(Stagiaire modifierStagiaire) {
-		this.stagiaire = modifierStagiaire;
-	}
-	
-	public void ajouterStagiaire() {
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		
+		validerBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				ajouterStagiaire();
+			}
+		});
+		
+		annulerBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+			@Override
+			public void handle(ActionEvent event) {
+				reset();
+			}
+		});
+		
+		closeBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				closeStage();
+			}
+		});
 	}
 
 	@FXML
 	private void valider() {
-		if(!saisieValide()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Erreur Saisie");
-			alert.setContentText(texteAlert);
-			alert.show();
-			return;			
-		}
-
-		modele.addStagiaire(initDonnees());
-		saisieOK = true;
-
-		secondaryStage.close();
-
+//		if(!saisieValide()) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setHeaderText("Erreur Saisie");
+//			String texteAlert;
+//			alert.setContentText(texteAlert);
+//			alert.show();
+//			return;			
+//		}
+//		Object modele;
+//		((Object) modele).addStagiaire(initDonnees());
+//		boolean saisieOK = true;
+//		secondaryStage.close();
+	}
+	private Object initDonnees() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private boolean saisieValide() {
-		boolean saisieValide = true;
-
-		texteAlert = "";
-
-		nom = nomTF.getText().trim(); // trim supprime les espaces avant et apres
-		prenom =  prenomTF.getText().trim();
-		departement =  departementTF.getText().trim();
-		promotion = promotionTF.getText().trim();
-		anneeObtention =  anneeObtentionTF.getText().trim();
-
-		if (nom.length() == 0 || !nom.matches("[a-zA-Z\\s]+")) {
-			saisieValide = false;
-			texteAlert += "Champ nom non valide :";
-			if (nom.length() == 0) texteAlert += " a remplir\n";
-			else if (!nom.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres\n";
-		}
-		if (prenom.length() == 0 || !prenom.matches("[a-zA-Z\\s]+")) {
-			saisieValide = false;
-			texteAlert += "Champ prenom non valide :";
-			if (prenom.length() == 0) texteAlert += " a remplir\n";
-			else if (!prenom.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres\n";
-		}
-		if (departement.length() == 0 || !departement.matches("[a-zA-Z0-9\\s]+")) {
-			saisieValide = false;
-			texteAlert += "Champ departement non valide :";
-			if (departement.length() == 0) texteAlert += " a remplir\n";
-			else if (!departement.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres ou des entiers\n";
-		}
-
-		if (promotion.length() == 0 || !promotion.matches("[a-zA-Z0-9\\s]+")) {
-			saisieValide = false;
-			texteAlert += "Champ promotion non valide :";
-			if (promotion.length() == 0) texteAlert += " a remplir\n";
-			else if (!promotion.matches("[a-zA-Z\\s]+")) texteAlert += " ne doit contenir que des lettres ou des entiers\n";
-		}
-		if (anneeObtention.length() == 0) {
-			try {
-				Integer.parseInt(anneeObtention);
-				if (anneeObtention.charAt(0) == '-') {
-					saisieValide = false;
-					texteAlert += "Champ anneeObtention non valide : ne doit contenir qu'un entier positif compris entre 1980 et 2025\n";
-				}
-			} catch (NumberFormatException nfE) {
-				saisieValide = false;
-				texteAlert += "Champ anneeObtention non valide : ne doit contenir qu'un entier positif\n";
-			}
-		}
-
-
-		return saisieValide;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	private Object[] initDonnees() {
-		Object[] donneesStagiaire = new Object[5];
+	public void ajouterStagiaire() {
+		int index = 0;
+		// Valider la saisie
+		String erreurs = validerSaisie();
+		if (erreurs.isEmpty()) {
+			Stagiaire stagiaire = new Stagiaire();
+			stagiaire.setNom(nomTexteField.getText());
+			stagiaire.setPrenom(prenomTexteField.getText());
+			stagiaire.setPromotion(promotionTexteField.getText());
+			stagiaire.setDepartement(departementTexteField.getText());
+			stagiaire.setAnneeObtention(Integer.valueOf(anneeObtentionTexteField.getText()));
 
-		donneesStagiaire[0] = nom;
-		donneesStagiaire[1] = prenom;
-		donneesStagiaire[2] = departement;
-		donneesStagiaire[3] = promotion;
-
-		if (anneeObtention.length() == 0) donneesStagiaire[4] = 0; // Ici rajouter condition pour que anneeObtention soit compris entre 1980 et 2025
-		else donneesStagiaire[4] = Integer.parseInt(anneeObtention);
-
-		return donneesStagiaire;
+			vuePrincipaleControleur.mettreAjourAnnuaire(stagiaire, index);
+			vuePrincipaleControleur.mettreAJourVue(stagiaire);
+			
+			closeStage();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Erreurs de saisie : ");
+			alert.setContentText(erreurs);
+			alert.show();
+		}
+		index++;
+	}
+	
+	/**
+	 * 
+	 * @param rootPane
+	 */
+	public void creeEtAfficheFenetreAjoutStagiaires(Region rootPane) {
+		Scene scene = new Scene(rootPane, rootPane.getPrefWidth(), rootPane.getPrefHeight());
+		this.ajouterStagiaireStage = new Stage();
+		this.ajouterStagiaireStage.setTitle("Ajout d'un nouveau stagiaire");
+		this.ajouterStagiaireStage.setScene(scene);
+		this.ajouterStagiaireStage.show();
 	}
 
 	private void closeStage() {
@@ -164,10 +147,51 @@ public class VueAjouterEditionControleur {
 	}
 
 	private void reset() {
-		nomTF.clear();
-		prenomTF.clear();
-		departementTF.clear();
-		promotionTF.clear();
-		anneeObtentionTF.clear();
+		nomTexteField.clear();
+		prenomTexteField.clear();
+		departementTexteField.clear();
+		promotionTexteField.clear();
+		anneeObtentionTexteField.clear();
+	}
+	
+	private String validerSaisie() {
+		StringBuilder errorsBuilder = new StringBuilder();
+
+		// nom
+		String nom = nomTexteField.getText();
+		if (nom == null || nom.trim().isEmpty()) {
+			errorsBuilder.append("Le nom du stagiaire doit Ãªtre renseignÃ©\n");
+		}
+
+		//prenom
+		String prenom = nomTexteField.getText();
+		if (prenom == null || prenom.trim().isEmpty()) {
+			errorsBuilder.append("Le prenom du stagiaire doit Ãªtre renseignÃ©e\n");
+		}
+
+		// departement
+		String departement = departementTexteField.getText();
+		if (departement == null || departement.trim().isEmpty()) {
+			errorsBuilder.append("Le departement du stagiaire doit Ãªtre renseignÃ©\n");
+		} 
+
+		// promotion
+		String promotion = promotionTexteField.getText();
+		if (promotion == null || promotion.trim().isEmpty()) {
+			errorsBuilder.append("La promotion du stagiaire doit Ãªtre renseignÃ©e\n");
+		}
+
+		// annee obtention
+		String anneeObtention = anneeObtentionTexteField.getText();
+		if (anneeObtention == null || anneeObtention.trim().isEmpty()) {
+			errorsBuilder.append("L'annee d'obtention du stagiaire doit Ãªtre renseignÃ©e\n");
+		}else {
+			try {
+				Integer.valueOf(anneeObtention);
+			} catch (NumberFormatException e) {
+				errorsBuilder.append("L'annee d'obtention du stagiaire doit Ãªtre une valeur numÃ©rique\n");
+			}
+		}
+		return errorsBuilder.toString();
 	}
 }
