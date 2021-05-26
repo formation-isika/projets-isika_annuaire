@@ -6,9 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import fr.isika.cda10.annuaire.models.ArbreBinaire.Noeud;
+
 
 public class Annuaire {
 

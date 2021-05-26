@@ -20,8 +20,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Nom" textAlignment="CENTER">
@@ -74,15 +74,13 @@
                   <Insets right="30.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="validerBtn" layoutX="125.0" layoutY="249.0" mnemonicParsing="false" text="Valider" />
-            <Button fx:id="annulerBtn" layoutX="186.0" layoutY="249.0" mnemonicParsing="false" text="Annuler" />
-            <Button fx:id="closeBtn" layoutX="431.0" layoutY="249.0" mnemonicParsing="false" text="Fermer" />
          </children>
       </GridPane>
       <ButtonBar layoutX="163.0" layoutY="330.0" prefHeight="53.0" prefWidth="275.0">
         <buttons>
-            <Button mnemonicParsing="false" onAction="#valider" prefWidth="120.0" text="Valider" textAlignment="CENTER" />
-          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="120.0" text="Annuler" textAlignment="CENTER" />
+          <Button fx:id="closeBtn" alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Fermer" />
+          <Button fx:id="validerBtn" alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Valider" />
+          <Button fx:id="annulerBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="120.0" text="Annuler" textAlignment="CENTER" />
         </buttons>
       </ButtonBar>
    </children>

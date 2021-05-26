@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -39,12 +40,14 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="rafraichirBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Rafraichir" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="768.0" layoutY="273.0" prefHeight="141.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <Button fx:id="btnRecherche" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Recherche" />
-                  <Button fx:id="btnImpression" alignment="CENTER" mnemonicParsing="false" text="Impression" />
+               	  <TextField fx:id="rechercheTF" />
+                  <Button fx:id="rechercheBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Recherche" />
+                  <Button fx:id="impressionBtn" alignment="CENTER" mnemonicParsing="false" text="Impression" />
                </children>
             </VBox>
             <Button fx:id="btnLogin" layoutX="43.0" layoutY="26.0" mnemonicParsing="false" text="Login" />

@@ -1,20 +1,11 @@
 package fr.isika.cda10.annuaire.app;
 
 import java.io.IOException;
-import java.net.URL;
-import fr.isika.cda10.annuaire.controleurs.VueAjouterEditionControleur;
 import fr.isika.cda10.annuaire.controleurs.VuePrincipaleControleur;
-import fr.isika.cda10.annuaire.models.Annuaire;
-import fr.isika.cda10.annuaire.models.ArbreBinaire;
-import fr.isika.cda10.annuaire.models.ModelePrincipal;
-import fr.isika.cda10.annuaire.models.Stagiaire;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LanceurAnnuaire extends Application {
@@ -47,7 +38,7 @@ public class LanceurAnnuaire extends Application {
 	public Stage getPrimaryStage() {
 		return vuePrincipale;
 	}
-	//================================================================================================================================
+
 	public static void main(String[] args) {
 		launch(args);
 	}
