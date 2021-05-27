@@ -7,12 +7,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.JFrame;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import fr.isika.cda10.annuaire.models.Annuaire;
+import fr.isika.cda10.annuaire.models.LecteurPDF;
 import fr.isika.cda10.annuaire.models.Stagiaire;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -163,6 +167,22 @@ public class VuePrincipaleControleur implements Initializable {
 				}
 			}
 		});
+		
+
+		documentationBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				String file_name = "Documentation.pdf";
+				LecteurPDF lecteur = new LecteurPDF(file_name);
+		        //créer le JFrame
+		        JFrame f = new JFrame("Lecteur PDF");
+		        f.setSize(1024,768);
+		        f.setLocationRelativeTo(null);
+		        f.setVisible(true);
+		        f.getContentPane().add(lecteur);
+			}
+		});
 
 		// Ajout de l'action du bouton impression 
 		impressionBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -171,7 +191,7 @@ public class VuePrincipaleControleur implements Initializable {
 			public void handle(ActionEvent event) {
 
 				try {
-					String file_name = "C:\\Users\\micka\\Desktop\\Dev\\Projet1\\projets-isika_annuaire\\GestionAnnuaire\\Projet1.pdf";
+					String file_name = "Projet1.pdf";
 					Document document = new Document();
 					PdfWriter.getInstance(document, new FileOutputStream(file_name));
 
@@ -215,7 +235,13 @@ public class VuePrincipaleControleur implements Initializable {
 
 					System.out.println("Test fini");
 					
-					
+					LecteurPDF lecteur = new LecteurPDF(file_name);
+			        //créer le JFrame
+			        JFrame f = new JFrame("Lecteur PDF");
+			        f.setSize(1024,768);
+			        f.setLocationRelativeTo(null);
+			        f.setVisible(true);
+			        f.getContentPane().add(lecteur);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

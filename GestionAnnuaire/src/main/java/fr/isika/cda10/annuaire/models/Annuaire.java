@@ -175,5 +175,26 @@ public class Annuaire {
 		return stagiaireAChercher;
 	}
 
+	public void testFichierBinaire() {
+		File fichierBinaire = new File("C:\\Users\\micka\\Desktop\\Dev\\Projet1\\projets-isika_annuaire\\GestionAnnuaire\\fichierBinaire.bin");
+		List<Stagiaire> stagiaires = getListStagiaireDansArbreBinaire();
+
+		try (RandomAccessFile raf =  new RandomAccessFile(fichierBinaire, "rw")){
+
+			for (Stagiaire stagiaire : stagiaires) {
+				raf.writeChars(stagiaire.nomLong());
+				raf.writeChars(stagiaire.prenomLong());
+				raf.writeChars(stagiaire.deptLong());
+				raf.writeChars(stagiaire.promoLong());
+				raf.writeInt(stagiaire.getAnneeObtention());
+				
+			}
+
+			raf.close();
+			System.out.println("Enregistrement réussi");
+		} catch (IOException ioe) {
+			System.out.println("Enregistrement échoué");
+		}		
+	}
 
 }

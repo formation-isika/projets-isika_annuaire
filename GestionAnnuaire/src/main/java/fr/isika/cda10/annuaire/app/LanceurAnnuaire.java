@@ -2,6 +2,7 @@ package fr.isika.cda10.annuaire.app;
 
 import java.io.IOException;
 import fr.isika.cda10.annuaire.controleurs.VuePrincipaleControleur;
+import fr.isika.cda10.annuaire.models.Annuaire;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,6 +42,7 @@ public class LanceurAnnuaire extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 }
 

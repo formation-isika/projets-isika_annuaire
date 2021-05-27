@@ -32,5 +32,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/micka/Desktop/Outils Developpement/itextpdf-5.5.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/micka/Downloads/acrobat-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/micka/Downloads/mrjtoolkitstubs-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

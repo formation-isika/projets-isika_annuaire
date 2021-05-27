@@ -22,7 +22,7 @@
                   <TableColumn fx:id="anneeObtentionCol" prefWidth="106.0" text="Année" />
               </columns>
             </TableView>
-            <Button fx:id="btnDocumentation" alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Documentation" />
+            <Button fx:id="documentationBtn" alignment="CENTER" layoutX="757.0" layoutY="472.0" mnemonicParsing="false" text="Documentation" />
             <VBox alignment="CENTER" layoutX="768.0" layoutY="89.0" prefHeight="168.0" prefWidth="100.0" spacing="15.0">
                <children>
                   <Button fx:id="ajouteStagiaireBtn" alignment="CENTER" maxWidth="93.0" mnemonicParsing="false" text="Nouveau" textAlignment="CENTER">
