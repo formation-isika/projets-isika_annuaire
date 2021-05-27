@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.isika.cda10</groupId>
-  <artifactId>GestionAnnuaire</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.isika.cda10</groupId>
+	<artifactId>GestionAnnuaire</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
 		<java.version>1.8</java.version>
 		<!-- Test -->
 		<junit.version>4.12</junit.version>
@@ -35,6 +37,21 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.30</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.adobe.acrobat</groupId>
+			<artifactId>acrobat</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mrj</groupId>
+			<artifactId>MRJToolkitStubs</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 </project>
